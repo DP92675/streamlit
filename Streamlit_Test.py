@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
-import matplotlib.ticker as mticker
+import plotly.express as px
+import plotly.graph_objects as go
 
 # Title of the Streamlit app
 st.title('Visits Analysis')
@@ -19,29 +19,25 @@ start_index, end_index = st.slider('Select a date range:', min_value=0, max_valu
 # Filtering the data based on the selected date range
 filtered_data = data.iloc[start_index:end_index + 1]
 
-# Creating a figure and axis
-fig, ax1 = plt.subplots(figsize=(12, 6))
+# Creating a Plotly figure with a vertical bar graph for "Visits"
+fig = px.bar(filtered_data, x='Month', y='Visits', text='Visits', labels={'Visits': 'Visits'})
 
-# Plotting "Visits" as a vertical bar graph
-ax1.bar(filtered_data['Month'], filtered_data['Visits'], color='b', label='Visits')
-ax1.set_xlabel('Month')
-ax1.set_ylabel('Visits', color='b')
-ax1.tick_params(axis='y', colors='b')
-ax1.legend(loc='upper left')
+# Updating the bar width to 3 times the default size
+fig.update_traces(width=3 * 86400000)  # 1 day in milliseconds
 
-# Creating a second y-axis to plot "Visits (y/y)" with double line width
-ax2 = ax1.twinx()
-ax2.plot(filtered_data['Month'], filtered_data['Visits (y/y)'] * 100, color='orange', linestyle='dotted', label='Visits (y/y)', linewidth=2)
-ax2.set_ylabel('Visits (y/y) (%)', color='orange')
-ax2.tick_params(axis='y', colors='orange')
-ax2.legend(loc='upper right')
+# Adding a line plot for "Visits (y/y)" with a dotted orange line
+line_trace = go.Scatter(x=filtered_data['Month'], y=filtered_data['Visits (y/y)'] * 100, mode='lines', line=dict(dash='dot', color='orange'))
+fig.add_trace(line_trace)
 
-# Defining a custom formatter function for the second y-axis as a percentage
-def percent_formatter(x, pos):
-    return '{:.0f}%'.format(x)
-
-# Applying the custom formatter to the second y-axis
-ax2.yaxis.set_major_formatter(mticker.FuncFormatter(percent_formatter))
+# Updating the y-axis to show percentages for "Visits (y/y)"
+fig.update_layout(
+    yaxis2=dict(
+        title='Visits (y/y) (%)',
+        overlaying='y',
+        side='right',
+        tickformat='%'
+    )
+)
 
 # Displaying the plot in the Streamlit app
-st.pyplot(fig)
+st.plotly_chart(fig)
