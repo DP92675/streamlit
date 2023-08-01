@@ -5,11 +5,10 @@ import matplotlib.pyplot as plt
 # Title of the Streamlit app
 st.title('Visits Analysis')
 
-# Reading the data from the Excel file
-file_path = 'Streamlit_Test.xlsx'
+# Reading the data from the uploaded Excel file
+file_path = '/mnt/data/Streamlit_Test.xlsx'
 data = pd.read_excel(file_path)
-print(data)
-print('1---------------------------')
+
 # Converting the "Month" column to a datetime object
 data['Month'] = pd.to_datetime(data['Month'])
 
