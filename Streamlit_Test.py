@@ -23,7 +23,7 @@ filtered_data = data.iloc[start_index:end_index + 1]
 fig = go.Figure()
 
 # Add a bar trace for "Visits" with a width of 5 days
-fig.add_trace(go.Bar(x=filtered_data['Month'], y=filtered_data['Visits'], name='Visits', width=5 * 86400000))  # 5 days in milliseconds
+fig.add_trace(go.Bar(x=filtered_data['Month'], y=filtered_data['Visits'], name='Visits', width=20 * 86400000))  # 20 days in milliseconds
 
 # Add a scatter trace for "Visits (y/y)" on a secondary y-axis, presented in percentages
 fig.add_trace(go.Scatter(x=filtered_data['Month'], y=filtered_data['Visits (y/y)'] * 100, name='Visits (y/y) (%)', line=dict(dash='dot', color='orange'), yaxis='y2'))
@@ -31,7 +31,7 @@ fig.add_trace(go.Scatter(x=filtered_data['Month'], y=filtered_data['Visits (y/y)
 # Update layout to include a secondary y-axis for percentages
 fig.update_layout(
     yaxis=dict(title='Visits'),
-    yaxis2=dict(title='Visits (y/y) (%)', overlaying='y', side='right', tickformat='%'),
+    yaxis2=dict(title='Visits (y/y) (%)', overlaying='y', side='right', tickformat='.1%'),
     xaxis=dict(title='Month'),
     barmode='overlay',
     template='plotly_white'
