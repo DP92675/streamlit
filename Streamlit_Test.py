@@ -26,15 +26,16 @@ fig = go.Figure()
 fig.add_trace(go.Bar(x=filtered_data['Month'], y=filtered_data['Visits'], name='Visits', width=20 * 86400000, marker_color='#0F1B93'))  # 20 days in milliseconds
 
 # Add a scatter trace for "Visits (y/y)" on a secondary y-axis, presented in percentages
-fig.add_trace(go.Scatter(x=filtered_data['Month'], y=filtered_data['Visits (y/y)'], name='Visits (y/y)', line=dict(dash='dot', color='#E67E22', width=3), yaxis='y2'))
+fig.add_trace(go.Scatter(x=filtered_data['Month'], y=filtered_data['Visits (y/y)'], name='Visits (y/y)', line=dict(dash='dot', color='#E67E22', width=5), yaxis='y2'))
 
 # Update layout to include a secondary y-axis for percentages, rounded to 1 decimal, and remove grid lines
 fig.update_layout(
-    yaxis=dict(title='Visits'),
-    yaxis2=dict(title='Visits (y/y) (%)', overlaying='y', side='right', tickformat='.1%', showgrid=False),  # Remove grid lines
-    xaxis=dict(title='Month'),
+    yaxis=dict(title=<b>'Visits'</b>),
+    yaxis2=dict(title=<b>'Visits (y/y)</b>', overlaying='y', side='right', tickformat='.1%', showgrid=False, zeroline=False),  # Remove grid lines
+    xaxis=dict(title=<b>'Month'</b>),
     barmode='overlay',
-    template='plotly_white'
+    template='plotly_white',
+    legend=dict(y=1, x=1, xanchor='right', yanchor='top', font=dict(weight='bold'))
 )
 
 # Displaying the plot in the Streamlit app
