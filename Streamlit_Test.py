@@ -8,17 +8,16 @@ st.title('Visits Analysis')
 # Reading the data from the Excel file
 file_path = 'Streamlit_Test.xlsx'
 data = pd.read_excel(file_path)
-
+print(data)
+print('1---------------------------')
 # Converting the "Month" column to a datetime object
 data['Month'] = pd.to_datetime(data['Month'])
 
-# Adding a slider to select the date range
-min_date = data['Month'].min()
-max_date = data['Month'].max()
-start_date, end_date = st.slider('Select a date range:', min_value=min_date, max_value=max_date, value=(min_date, max_date))
+# Adding a slider to select the date range using index values
+start_index, end_index = st.slider('Select a date range:', min_value=0, max_value=len(data) - 1, value=(0, len(data) - 1))
 
 # Filtering the data based on the selected date range
-filtered_data = data[(data['Month'] >= start_date) & (data['Month'] <= end_date)]
+filtered_data = data.iloc[start_index:end_index + 1]
 
 # Creating a figure and axis
 fig, ax1 = plt.subplots(figsize=(12, 6))
