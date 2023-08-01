@@ -35,8 +35,12 @@ ax2.set_ylabel('Visits (y/y) (%)', color='orange')
 ax2.tick_params(axis='y', colors='orange')
 ax2.legend(loc='upper right')
 
-# Formatting the second y-axis as a percentage
-ax2.yaxis.set_major_formatter('{:.0f}%')
+# Defining a custom formatter function for the second y-axis as a percentage
+def percent_formatter(x, pos):
+    return '{:.0f}%'.format(x)
+
+# Applying the custom formatter to the second y-axis
+ax2.yaxis.set_major_formatter(mticker.FuncFormatter(percent_formatter))
 
 # Displaying the plot in the Streamlit app
 st.pyplot(fig)
