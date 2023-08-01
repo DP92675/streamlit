@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 st.title('Visits Analysis')
 
 # Reading the data from the uploaded Excel file
-file_path = '/mnt/data/Streamlit_Test.xlsx'
+file_path = 'Streamlit_Test.xlsx'
 data = pd.read_excel(file_path)
 
 # Converting the "Month" column to a datetime object
