@@ -35,7 +35,7 @@ fig.update_layout(
     xaxis=dict(title='<b>Month</b>'),
     barmode='overlay',
     template='plotly_white',
-    legend=dict(y=1, x=1, xanchor='right', yanchor='top', font=dict(weight='bold'))
+    legend=dict(y=1, x=1, xanchor='right', yanchor='top')
 )
 
 # Displaying the plot in the Streamlit app
