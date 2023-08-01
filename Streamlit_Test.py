@@ -30,9 +30,9 @@ fig.add_trace(go.Scatter(x=filtered_data['Month'], y=filtered_data['Visits (y/y)
 
 # Update layout to include a secondary y-axis for percentages, rounded to 1 decimal, and remove grid lines
 fig.update_layout(
-    yaxis=dict(title=<b>'Visits'</b>),
-    yaxis2=dict(title=<b>'Visits (y/y)</b>', overlaying='y', side='right', tickformat='.1%', showgrid=False, zeroline=False),  # Remove grid lines
-    xaxis=dict(title=<b>'Month'</b>),
+    yaxis=dict(title='<b>Visits</b>'),
+    yaxis2=dict(title='<b>Visits (y/y)</b>', overlaying='y', side='right', tickformat='.1%', showgrid=False, zeroline=False),  # Remove grid lines
+    xaxis=dict(title='<b>Month</b>'),
     barmode='overlay',
     template='plotly_white',
     legend=dict(y=1, x=1, xanchor='right', yanchor='top', font=dict(weight='bold'))
