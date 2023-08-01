@@ -19,24 +19,22 @@ start_index, end_index = st.slider('Select a date range:', min_value=0, max_valu
 # Filtering the data based on the selected date range
 filtered_data = data.iloc[start_index:end_index + 1]
 
-# Creating a Plotly figure with a vertical bar graph for "Visits"
-fig = px.bar(filtered_data, x='Month', y='Visits', text='Visits', labels={'Visits': 'Visits'})
+# Create a figure with subplots
+fig = go.Figure()
 
-# Updating the bar width to 3 times the default size
-fig.update_traces(width=3 * 86400000)  # 1 day in milliseconds
+# Add a bar trace for "Visits" with a width of 5 days
+fig.add_trace(go.Bar(x=filtered_data['Month'], y=filtered_data['Visits'], name='Visits', width=5 * 86400000))  # 5 days in milliseconds
 
-# Adding a line plot for "Visits (y/y)" with a dotted orange line
-line_trace = go.Scatter(x=filtered_data['Month'], y=filtered_data['Visits (y/y)'] * 100, mode='lines', line=dict(dash='dot', color='orange'))
-fig.add_trace(line_trace)
+# Add a scatter trace for "Visits (y/y)" on a secondary y-axis, presented in percentages
+fig.add_trace(go.Scatter(x=filtered_data['Month'], y=filtered_data['Visits (y/y)'] * 100, name='Visits (y/y) (%)', line=dict(dash='dot', color='orange'), yaxis='y2'))
 
-# Updating the y-axis to show percentages for "Visits (y/y)"
+# Update layout to include a secondary y-axis for percentages
 fig.update_layout(
-    yaxis2=dict(
-        title='Visits (y/y) (%)',
-        overlaying='y',
-        side='right',
-        tickformat='%'
-    )
+    yaxis=dict(title='Visits'),
+    yaxis2=dict(title='Visits (y/y) (%)', overlaying='y', side='right', tickformat='%'),
+    xaxis=dict(title='Month'),
+    barmode='overlay',
+    template='plotly_white'
 )
 
 # Displaying the plot in the Streamlit app
